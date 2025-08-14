@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UFT-8">
+        <title>Base front-end setup</title>
+        <script defer src="main.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+        <style>
+            .field {
+            background-color: lightgrey;
+            height: 120px;
+            width: 120px;
+            text-align: center;
+            cursor: pointer;
+}
+        </style>
+    </head>
+    <body>
+        <table id="bingoSpace"></table>
+
+        <script>
+            const fields = ["Computer on Night-mode"
+            ,"No questions"
+            ,"Audience making agreeing sounds"
+            ,"Speaker bashes previous work"
+            ,"Repeated use of 'um'"
+            ,"AI Generated image"
+            ,"Reading from slides"
+            ,"'Beyond the scope of this work'"
+            ,"Presenter using one slide for more than half the presentation"
+            ,"Pun in title"
+            ,"Zoom malfunction"
+            ,"Technical issue"
+            ,"Notification sound"
+            ,"Presenter not actually replying to question"
+            ,"Someone falling asleep"
+            ,"'Can you hear me?'"
+            ,"'Thank you for the presentation'"
+            ,"A massive slide of pure text"
+            ,"Overly loud bag of snack being opened"
+            ,"Delay due to issues when changing slideshow"
+            ,"... et al."
+            ,"Relate to AI"
+            ,"Blatant typo"
+            ,"Presenter not sure about topic"
+            ,"You have no idea what is going on"
+            ,"Someone writing an email"
+            ,"Disagreement between audience and presenter"
+            ,"Presenter doesn't look at audience"
+            ,"Presenter sitting through entire presentation"];
+
+            const freeField = "Presenter using too much time";
+            let tempOrder = []
+            let order = []
+
+            for(let i=0; i<fields.length; i++){
+                tempOrder.push(i)
+            }
+
+            for(let j=0; j<25; j++){
+                let tempIndex = Math.floor(Math.random() * (24-j));
+                order.push(tempOrder[tempIndex])
+                tempOrder.splice(tempIndex,1);
+            }
+
+
+
+            let rowIndex = 0
+            for(let k=0; k<order.length;k++){
+                if(k%5==0){
+                    rowIndex +=1;
+                    let newRowEdge = document.createElement("tr");
+                    newRowEdge.setAttribute("id","row" + rowIndex);
+                    document.getElementById("bingoSpace").appendChild(newRowEdge);
+                }
+                let newField = document.createElement("td");
+                if(k == ((order.length-1)/2)){
+                    newField.innerText = freeField;
+                    newField.style.backgroundColor = "pink";
+                }
+                else{
+                    newField.innerText = fields[order[k]];
+                }
+                newField.classList.add("field")
+                newField.addEventListener("click",e=>{
+                    newField.style.backgroundColor = "pink";
+                })
+                document.getElementById("row" + rowIndex).appendChild(newField);
+            }
+
+
+        </script>
+    </body>
+</html>
